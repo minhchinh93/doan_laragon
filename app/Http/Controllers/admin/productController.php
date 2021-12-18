@@ -13,7 +13,7 @@ class productController extends Controller
 
 
     public function ProductList(Request $request){
-        // dd(product::find(1)->type_product());
+        dd(product::find(1));
         $keyword = $request->keyword;
         $shows=  Product::where('name','like', "%{$keyword}%")->withTrashed()->paginate(10);
         $count= Product::withTrashed()->count();

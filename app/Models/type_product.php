@@ -16,4 +16,5 @@ class type_product extends Model
     {
         return $this->hasMany(product::class);
     }
+    
 }
