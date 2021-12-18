@@ -1,9 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+//admin
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\typeProductController;
 use App\Http\Controllers\admin\productController;
+//clients
+use App\Http\Controllers\client\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +20,7 @@ use App\Http\Controllers\admin\productController;
 */
 
 Route::get('/', function () {
-    return view('admin.layout.home');
+    return view('clients.show.about');
 });
 
 
@@ -85,4 +88,26 @@ Route::prefix('admin')->group(function () {
             Route::get('restoreProduct/{id}',[productController::class,'restoreProduct'])->name('restoreProduct');
             // thực hiện tac vụ
             Route::get('productaction',[productController::class,'action'])->name('productaction');
+});
+
+
+//=========khôi client===========//
+//===========Home=================//
+Route::prefix('client')->group(function () {
+
+
+    //show home
+    Route::get('home',[HomeController::class,'home'])->name('home');
+    //show product_type
+    Route::get('product_type/{id_type}',[HomeController::class,'product_type'])->name('product_type');
+    //show product
+    Route::get('product/{id}',[HomeController::class,'product'])->name('product');
+    //show contact
+    Route::get('contact',[HomeController::class,'contact'])->name('contact');
+    //show about
+    Route::get('about',[HomeController::class,'about'])->name('about');
+    //show shopping
+    Route::get('shopping',[HomeController::class,'shopping'])->name('shopping');
+
+
 });

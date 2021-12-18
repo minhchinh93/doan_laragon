@@ -13,7 +13,6 @@ class productController extends Controller
 
 
     public function ProductList(Request $request){
-        dd(product::find(1));
         $keyword = $request->keyword;
         $shows=  Product::where('name','like', "%{$keyword}%")->withTrashed()->paginate(10);
         $count= Product::withTrashed()->count();
@@ -36,18 +35,20 @@ class productController extends Controller
          return view('admin.products.add',['shows'=>$shows,'categories'=>$category]);
      }
     public function postProduct(Request $request){
+        dd($request->all());
        $image= $request->file('image')->store('images');
-        Product::create(array_merge($request->only('name','id_type','title','description','unit_price','sale_price'),['image'=> $image]));
+        Product::create(array_merge($request->only('name','id_type','description','Unit_price','promotion_price','new','unit'),['image'=> $image]));
         return redirect()->route('ProductList')->with('success', 'bạn da them danh muc thanh cong');
     }
     public function updateProduct(Request $request, $id){
         $image= $request->file('image')->store('images');
-        Product::where('id',$id)->update(array_merge($request->only('name','id_type','title','description','unit_price','sale_price'),['image'=> $image]));
+        Product::where('id',$id)->update(array_merge($request->only('name','id_type','description','Unit_price','promotion_price','new','unit'),['image'=> $image]));
         return redirect()->route('ProductList')->with('success', 'bạn xóa danh mục thanh cong');
     }
     public function updatetemplateProduct( $id){
         $shows = Product::find($id);
-        return view('admin.products.update',['shows'=>$shows]);
+        $products=type_product::all();
+        return view('admin.products.edit',['shows'=>$shows,'products'=>$products]);
     }
     public function deleteProduct($id){
         Product::find($id)->delete();

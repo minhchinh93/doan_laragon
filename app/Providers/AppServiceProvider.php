@@ -3,6 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Blade;
+use App\Models\type_product;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,6 +18,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
+        Paginator::useBootstrap();
     }
 
     /**
@@ -24,5 +29,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        view()->composer('clients.layout.app',function($view){
+           $menus= type_product::all();
+           $view->with('menus',$menus);
+        });
+
     }
 }
