@@ -10,6 +10,7 @@ use App\Models\product;
 class type_product extends Model
 {
     use HasFactory,SoftDeletes;
+    public $table= 'type_products';
     protected $guarded = [];
 
     public function products()

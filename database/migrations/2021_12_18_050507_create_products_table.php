@@ -13,11 +13,12 @@ class CreateProductsTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('products');
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('id_type')->unsigned();
-            // $table->foreign('id_type')->references('id')->on('type_products')->onDelete('cascade');
+            $table->unsignedBigInteger('id_type');
+            $table->foreign('id_type')->references('id')->on('type_products')->onDelete('cascade');
             $table->longText('description');
             $table->float('Unit_price');
             $table->float('promotion_price');
@@ -39,5 +40,4 @@ class CreateProductsTable extends Migration
     {
         Schema::dropIfExists('products');
     }
-
 }

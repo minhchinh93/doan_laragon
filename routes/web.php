@@ -17,7 +17,7 @@ use App\Http\Controllers\admin\productController;
 */
 
 Route::get('/', function () {
-    return view('admin.layout.home');
+    return view('clients.show.about');
 });
 
 

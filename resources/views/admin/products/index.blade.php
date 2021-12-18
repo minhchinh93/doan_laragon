@@ -64,7 +64,7 @@
                     <td ><input type="checkbox" name="checkbox[]"  value="{{ $show->id }}"></td>
                     <td>{{ $i }}</td>
                     <td class="hidden-phone">{{ $show->name }}</td>
-                    <td class="hidden-phone">{{ $show->id_type }}</td>
+                    <td class="hidden-phone">{{ $show->category->name }}</td>
                     <td class="hidden-phone" style="width: 400px;">{{ $show->description }}</td>
                     <td><img src="{{asset('/storage/images/'.$show->image)}}" style="width: 100px;" ></td>
                     <td class="hidden-phone">{{ $show->Unit_price }}</td>
