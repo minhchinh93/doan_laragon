@@ -23,3 +23,7 @@ SUM(bill_detaills.quantity) as 'so luong',
  INNER JOIN
  customers 
  ON bills.id_customer = customers.id GROUP BY bills.id;
+ 
+ **Step 1**: composer install
+
+**Step 2**: change config database (copy .env.example -> .env)
