@@ -25,15 +25,21 @@
             <div class="container">
 				<div class="pull-left auto-width-left">
 					<ul class="top-menu menu-beta l-inline">
-						<li><a href=""><i class="fa fa-home"></i> 90-92 Lê Thị Riêng, Bến Thành, Quận 1</a></li>
-						<li><a href=""><i class="fa fa-phone"></i> 0163 296 7751</a></li>
+						<li><a href=""><i class="fa fa-home"></i>  15-16 Trần phú,Q.Hải châu,tp Đà nẵng </a></li>
+						<li><a href=""><i class="fa fa-phone"></i> 0987.903.445</a></li>
 					</ul>
 				</div>
 				<div class="pull-right auto-width-right">
 					<ul class="top-details menu-beta l-inline">
-						<li><a href="#"><i class="fa fa-user"></i>Tài khoản</a></li>
-						<li><a href="#">Đăng kí</a></li>
-						<li><a href="#">Đăng nhập</a></li>
+                        @if(Auth::check())
+						<li><a href="#"><i class="fa fa-user"></i>{{ Auth::user()->name }}</a></li>
+						<li><a href="{{ route('logout') }}">logout</a></li>
+
+                        @else
+                        <li><a href="#"><i class="fa fa-user"></i>Tài khoản</a></li>
+						<li><a href="{{ route('regiter') }}">Đăng kí</a></li>
+						<li><a href="{{ route('login') }}">Đăng nhập</a></li>
+                        @endif
 					</ul>
 				</div>
 				<div class="clearfix"></div>
@@ -42,19 +48,20 @@
 		<div class="header-body">
 			<div class="container beta-relative">
 				<div class="pull-left">
-					<a href="index.html" id="logo"><img src="{{ asset('client/dest/images/logo-cake.png')}}" width="200px" alt=""></a>
+					<a href="{{ route('home') }}" id="logo"><img src="{{ asset('client/dest/images/logo-cake.png')}}" width="200px" alt=""></a>
 				</div>
 				<div class="pull-right beta-components space-left ov">
 					<div class="space10">&nbsp;</div>
 					<div class="beta-comp">
-						<form role="search" method="get" id="searchform" action="/">
-					        <input type="text" value="" name="s" id="s" placeholder="Search entire store here..." />
+						<form role="search" method="get" id="searchform" action="">
+					        <input type="text" value="{{ request()->keyword }}" name="keyword" id="keyword" placeholder="Search entire store here..." />
 					        <button class="fa fa-search" type="submit" id="searchsubmit"></button>
 						</form>
 					</div>
 					<div class="beta-comp">
 						<div class="cart">
                             @if(Cart::count()>0)
+                            @if(Auth::check())
 							<div class="beta-select"><i class="fa fa-shopping-cart"></i> số sản phẩm ({{ Cart::count() }}) <i class="fa fa-chevron-down"></i></div>
 							<div class="beta-dropdown cart-body">
                                 @foreach (Cart::content() as $cart)
@@ -81,6 +88,9 @@
 							</div>
                             @else
 							<div class="beta-select"><i class="fa fa-shopping-cart"></i> số sản phẩm ('trống') <i class="fa fa-chevron-down"></i></div>
+                             @endif
+                             @else
+                             <div class="beta-select"><i class="fa fa-shopping-cart"></i> số sản phẩm ('trống') <i class="fa fa-chevron-down"></i></div>
                              @endif
 						</div> <!-- .cart -->
 					</div>

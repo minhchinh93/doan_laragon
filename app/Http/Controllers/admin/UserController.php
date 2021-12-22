@@ -36,7 +36,15 @@ class UserController extends Controller
          return view('admin.users.edit',['shows'=>$shows]);
     }
     public function updatesuser(Request $request, $id){
-       User::where('id',$id)->update($request->only('name','email','password','role'));
+
+        $data=[
+            'name'=> $request->name,
+            'email'=> $request->email,
+            'role'=> $request->role,
+            'password'=> bcrypt($request->password),
+
+        ];
+       User::where('id',$id)->update($data);
        return redirect()->route('showUser')->with('success','bạn da them danh muc thanh cong');
     }
 

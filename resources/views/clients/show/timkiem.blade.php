@@ -2,7 +2,7 @@
 
 
 @section ('content')
-
+{{--
 <div class="rev-slider">
     <div class="fullwidthbanner-container">
         <div class="fullwidthbanner">
@@ -28,6 +28,17 @@
         </div>
     </div>
     <!--slider-->
+</div> --}}
+
+<div class="inner-header">
+    <div class="container">
+        <div class="pull-right">
+            <div class="beta-breadcrumb font-large">
+                <a href="{{ route('home') }}">Home</a> / <span>Tìm kiếm</span>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
 </div>
 <div class="container">
     <div id="content" class="space-top-none">
@@ -36,13 +47,13 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="beta-products-list">
-                        <h4>Bánh Mới Ra</h4>
+                        <h4> kết quả Tìm kiếm</h4>
                         <div class="beta-products-details">
-                            <p class="pull-left">Tìm tháy {{ count($totalnewproducts ) }} sản phẩm</p>
+                            <p class="pull-left">Tìm tháy {{ count($shows) }} sản phẩm</p>
                             <div class="clearfix"></div>
                         </div>
                         <div class="row">
-                            @foreach ($newproducts as $newproduct )
+                            @foreach ($shows as $newproduct )
                             <div class="col-sm-3 ">
                                 <div class="single-item">
                               @if ($newproduct->promotion_price !=0)
@@ -76,59 +87,17 @@
                     </div>
 
                     <!-- .beta-products-list -->
-
-                    <div class="space50">&nbsp;</div>
-                    {{ $newproducts->links() }}
-                    <div class="beta-products-list">
-                        <h4>Sản phẩm sale</h4>
-                        <div class="beta-products-details">
-                            <p class="pull-left">Tìm tháy {{ count($totaltopproducts ) }} sản phẩm</p>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="row mt-3">
-                            @foreach ($topproducts as $topproduct )
-                            @if ($topproduct->promotion_price != 0)
-                            <div class="col-sm-3 ">
-                                <div class="single-item ">
-                                    <div class="ribbon-wrapper">
-                                        <div class="ribbon sale">HOT</div>
-                                    </div>
-                                    <div class="single-item-header">
-                                        <a href="{{ route('product',[$topproduct->id]) }}"><img src="{{asset('/storage/images/'.$topproduct->image)}}"  height="250px" alt=""></a>
-                                    </div>
-                                    <div class="single-item-body">
-                                        <p class="single-item-title">{{ $topproduct->name }}</p>
-                                        <p class="single-item-price">
-                                            @if ($newproduct->promotion_price ==0)
-                                            <span class="flash-sale">{{ number_format($topproduct->Unit_price, 0) }} vnd</span>
-                                            @else
-                                            <span class="flash-del">{{ number_format($topproduct->Unit_price, 0) }} vnd</span>
-                                            <span class="flash-sale">{{ number_format($topproduct->promotion_price, 0) }} vnd</span>
-                                            @endif
-                                        </p>
-                                    </div>
-                                    <div class="single-item-caption">
-                                        <a class="add-to-cart pull-left" style="color:white" href="{{ route('shopping',[$topproduct->id]) }}"><i class="fa fa-shopping-cart"></i></a>
-                                        <a class="beta-btn primary" href="{{ route('product',[$topproduct->id]) }}">Chi Tiết <i class="fa fa-chevron-right"></i></a>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            @endif
-                            @endforeach
-                        </div>
-                    </div>
-                    <!-- .beta-products-list -->
                 </div>
             </div>
             <!-- end section with sidebar and main content -->
             <div class="space50">&nbsp;</div>
-            {{ $topproducts->links() }}
+            {{-- {{ $shows->links() }} --}}
 
         </div>
         <!-- .main-content -->
     </div>
     <!-- #content -->
 </div>
+
 
 @endsection

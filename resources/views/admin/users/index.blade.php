@@ -10,7 +10,7 @@
                 <div class="row mt">
                     <div class="col-lg-4">
                         <div class="form-panel">
-                            <p class="category"><a style="color: gray" href="{{ route('showUser') }}">total user ({{ $index }}) </a> | <a  style="color: rgb(13, 182, 36)" href="{{ route('activeruser') }}">user activer ({{ $activeruser }})</a> | <a style="color:red" href="{{ route('trackuser') }}">user disable ({{ $trackuser }})</a></p>
+                            <p class="category"><a style="color: gray" href="{{ route('showUser') }}">total user ({{ $index ?? null}}) </a> | <a  style="color: rgb(13, 182, 36)" href="{{ route('activeruser') }}">user activer ({{ $activeruser ?? null}})</a> | <a style="color:red" href="{{ route('trackuser') }}">user disable ({{ $trackuser ?? null}})</a></p>
                 <form class="form-inline" role="form">
                     <div class="form-group">
                         <label class="sr-only" for="exampleInputEmail2">tim kiem</label>
@@ -53,10 +53,10 @@
                     $i++
                     @endphp
                 <tr>
-                    <td ><input type="checkbox" name="checkbox[]"  value="{{ $show->id }}"></td>
+                    <td ><input type="checkbox" name="checkbox[]"  value="{{ $show->id ?? null }}"></td>
                     <td>{{ $i }}</td>
-                    <td class="hidden-phone">{{ $show->name }}</td>
-                    <td class="hidden-phone">{{ $show->email }}</td>
+                    <td class="hidden-phone">{{ $show->name?? null }}</td>
+                    <td class="hidden-phone">{{ $show->email ?? null}}</td>
                     <td>{{ $show->role ==1 ? 'editer' : 'admin' }}</td>
                     <td>
                         @if (  $show->deleted_at ==  null)

@@ -6,8 +6,13 @@ use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\typeProductController;
 use App\Http\Controllers\admin\productController;
 use App\Http\Controllers\admin\dasboaController;
+use App\Http\Controllers\auth\logincontroller;
+use App\Http\Controllers\auth\regiterController;
+use App\Http\Controllers\auth\cfController;
+use App\Http\Controllers\auth\resetpassController;
 //clients
 use App\Http\Controllers\client\HomeController;
+use App\Http\Middleware\checkAdmin;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,34 +26,67 @@ use App\Http\Controllers\client\HomeController;
 */
 
 Route::get('/', function () {
-    return view('admin.dasboa.index');
+    return view('clients.auth.login');
+});
+
+
+//============Auth==========//
+
+Route::prefix('auth')->group(function () {
+    //login
+    Route::get('login',[logincontroller::class,'index'])->name('login');
+
+    Route::post('login',[logincontroller::class,'login'])->name('auth.login');
+
+    Route::get('logout',[logincontroller::class,'logout'])->name('logout');
+
+    //register
+
+    Route::get('regiter',[regiterController::class,'index'])->name('regiter');
+
+    Route::post('postList',[regiterController::class,'postList'])->name('postregiter');
+    //mail
+    Route::get('/senmail/{remember_token}',[cfController::class,'update'])->name('senmail');
+
+    Route::get('/email',[resetpassController::class,'forgotpass'])->name('forgotpass');
+
+    Route::post('/chekcmail',[resetpassController::class,'checkmail'])->name('checkmail');
+
+    Route::get('/sendMailChangepass/{email}',[resetpassController::class,'sendMailChangepass'])->name('sendMailChangepass');
+
+    Route::post('/changePasss/{email}',[resetpassController::class,'changePass'])->name('changePass');
+
+
 });
 
 //============ ADMIN  ====================//
-Route::prefix('admin')->group(function () {
-
-
-
-
+Route::middleware('checkAdmin')->prefix('admin')->group(function () {
     //=======dasboa=========//
     //show dasboa
     Route::get('showList/dasboa',[dasboaController::class,'showdasboa'])->name('showdasboa');
+    // chi tiêt hóa dơn user
+    Route::get('showList/chitiet/{id}',[dasboaController::class,'chitiet'])->name('chitiet');
+
+
+
+     //show user
+     Route::get('showList/User',[UserController::class,'showList'])->name('showUser');
     // edit user
-    Route::get('editList/user/{id}',[dasboaController::class,'editList'])->name('editUser');
-    Route::post('update/show/{id}',[dasboaController::class,'updatesuser'])->name('updatesuser');
+    Route::get('editList/user/{id}',[UserController::class,'editList'])->name('editUser');
+    Route::post('update/show/{id}',[UserController::class,'updatesuser'])->name('updatesuser');
     // add user
-    Route::get('addList/user',[dasboaController::class,'addList'])->name('addUser');
-    Route::post('postList/user',[dasboaController::class,'postList'])->name('postList');
+    Route::get('addList/user',[UserController::class,'addList'])->name('addUser');
+    Route::post('postList/user',[UserController::class,'postList'])->name('postList');
     // delete user
-    Route::get('/deleteUser/{id}',[userdasboaControllerController::class,'delete'])->name('deleteUser');
+    Route::get('/deleteUser/{id}',[UserController::class,'delete'])->name('deleteUser');
     // show trackuser
-    Route::get('trackuser', [dasboaController::class,'trackuser'])->name('trackuser');
+    Route::get('trackuser', [UserController::class,'trackuser'])->name('trackuser');
     //show activeruser
-    Route::get('activeruser', [dasboaController::class,'activeruser'])->name('activeruser');
+    Route::get('activeruser', [UserController::class,'activeruser'])->name('activeruser');
     // khoi phuc thung rac
-    Route::get('/restoreUser/{id}',[dasboaController::class,'restoreUser'])->name('restoreUser');
+    Route::get('/restoreUser/{id}',[UserController::class,'restoreUser'])->name('restoreUser');
     // action tổng hợp trong uer
-    Route::get('action',[dasboaController::class,'action'])->name('action');
+    Route::get('action',[UserController::class,'action'])->name('action');
 
 
     //=========khoi categoru============//
@@ -111,7 +149,7 @@ Route::prefix('client')->group(function () {
     //show about
     Route::get('about',[HomeController::class,'about'])->name('about');
     //show shopping
-    Route::get('shopping/{id}',[HomeController::class,'shopping'])->name('shopping');
+    Route::get('shopping/{id}',[HomeController::class,'shopping'])->middleware('auth')->name('shopping');
     //show addcart
     Route::get('deletecart/{rowID}',[HomeController::class,'deletecart'])->name('deletecart');
     //show checkout

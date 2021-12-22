@@ -16,19 +16,33 @@ class HomeController extends Controller
 {
     //
 
-    public function home() {
+    public function home(Request $request) {
         $slide =slide::all();
-        $newproducts=product::where('new',1)->get();
-        $newproduct=product::where('new',1)->paginate(4);
-        $topproducts=product::where('promotion_price','<>',0)->get();
-        $topproduct=product::where('promotion_price','<>',0)->paginate(8);
+        $keyword = '';
+        if($request->keyword){
+            $keyword = $request->keyword;
+            $shows=  Product::where('name','like', "%{$keyword}%")
+            ->orwhere('promotion_price','like', "%{$keyword}%")
+            ->get();
+            return view('clients.show.timkiem',['shows'=>$shows,]);
+        }
 
-        return view('clients.home',['slides'=>$slide,'newproducts'=>$newproduct,
-        'topproducts'=>$topproduct,
-        'totalnewproducts'=>$newproducts,
-        'totaltopproducts'=>$topproducts,
-    ]);
-    }
+            $newproducts=product::where('new',1)->get();
+            $newproduct=product::where('new',1)->paginate(4);
+            $topproducts=product::where('promotion_price','<>',0)->get();
+            $topproduct=product::where('promotion_price','<>',0)->paginate(8);
+            return view('clients.home',['slides'=>$slide,'newproducts'=>$newproduct,
+            'topproducts'=>$topproduct,
+            'totalnewproducts'=>$newproducts,
+            'totaltopproducts'=>$topproducts,
+        ]);
+
+
+        // $shows=  product::where('name','like', "%{$keyword}%");
+        // dd( $shows);
+
+
+}
     public function product_type($id_type){
 
         $product= product::where('id_type',$id_type)->paginate(6);

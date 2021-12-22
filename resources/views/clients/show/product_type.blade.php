@@ -52,10 +52,10 @@
                                 <p class="single-item-title">{{ $newproduct->name }}</p>
                                 <p class="single-item-price">
                                     @if ($newproduct->promotion_price ==0)
-                                    <span class="flash-sale">{{ $newproduct->Unit_price }} vnd</span>
+                                    <span class="flash-sale">{{number_format ($newproduct->Unit_price,0) }} vnd</span>
                                     @else
-                                    <span class="flash-del">{{ $newproduct->Unit_price }} vnd</span>
-                                    <span class="flash-sale">{{ $newproduct->promotion_price }} vnd</span>
+                                    <span class="flash-del">{{number_format ($newproduct->Unit_price,0) }} vnd</span>
+                                    <span class="flash-sale">{{number_format ($newproduct->promotion_price,0) }} vnd</span>
                                     @endif
                                 </p>
                                 </p>
@@ -95,10 +95,10 @@
                                 <p class="single-item-title">{{ $newproduct->name }}</p>
                                 <p class="single-item-price">
                                     @if ($newproduct->promotion_price ==0)
-                                    <span class="flash-sale">{{ $newproduct->Unit_price }} vnd</span>
+                                    <span class="flash-sale">{{number_format ($newproduct->Unit_price,0) }} vnd</span>
                                     @else
-                                    <span class="flash-del">{{ $newproduct->Unit_price }} vnd</span>
-                                    <span class="flash-sale">{{ $newproduct->promotion_price }} vnd</span>
+                                    <span class="flash-del">{{number_format ($newproduct->Unit_price,0) }} vnd</span>
+                                    <span class="flash-sale">{{number_format ($newproduct->promotion_price,0) }} vnd</span>
                                     @endif
                                 </p>
                             </div>

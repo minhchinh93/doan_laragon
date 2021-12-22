@@ -18,7 +18,7 @@
                 <div class="box1">
                     <span class="li_cloud"></span>
                     <h5>doanh số thu về</h5>
-                    <h3>{{ $totalbill }} vnđ</h3>
+                    <h3>{{ number_format($totalbill, 0) }} vnđ</h3>
                 </div>
                     <p>thu về  vnđ.</p>
             </div>
@@ -54,102 +54,53 @@
 
 
                             <thead>
+
                             <tr>
                                 <th><i class="fa fa-bullhorn"></i> stt</th>
                                 <th class="hidden-phone"><i class="fa fa-question-circle"></i> khách hàng</th>
-                                <th><i class="fa fa-bookmark"></i> sản phẩm</th>
                                 <th><i class=" fa fa-edit"></i> số lượng</th>
+                                <th><i class=" fa fa-edit"></i>thời gian </th>
                                 <th><i class=" fa fa-edit"></i> giá trị</th>
+                                <th><i class="fa fa-bullhorn"></i> địa chỉ</th>
+                                <th><i class="fa fa-bullhorn"></i> lưu ý</th>
+                                <th><i class="fa fa-bullhorn"></i> sô điệnt hoại khách hang</th>
                                 <th><i class=" fa fa-edit"></i> trạng thái</th>
-                                <th><i class=" fa fa-edit"></i> thời gian</th>
-                                <th><i class=" fa fa-edit"></i> tác vụ</th>
+                                <th><i class=" fa fa-edit"></i> chi tiết</th>
                                 <th></th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td><a href="basic_table.html#">Company Ltd</a></td>
-                                <td class="hidden-phone">Lorem Ipsum dolor</td>
-                                <td class="hidden-phone">Lorem Ipsum dolor</td>
-                                <td class="hidden-phone">Lorem Ipsum dolor</td>
-                                <td class="hidden-phone">Lorem Ipsum dolor</td>
-                                <td>12000.00$ </td>
-                                <td><span class="label label-info label-mini">Due</span></td>
-                                <td>
-                                    <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
-                                    <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
-                                    <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="basic_table.html#">
-                                        Dashgum co
-                                    </a>
-                                </td>
-                                <td class="hidden-phone">Lorem Ipsum dolor</td>
-                                <td class="hidden-phone">Lorem Ipsum dolor</td>
-                                <td class="hidden-phone">Lorem Ipsum dolor</td>
-                                <td class="hidden-phone">Lorem Ipsum dolor</td>
-                                <td>17900.00$ </td>
-                                <td><span class="label label-warning label-mini">Due</span></td>
-                                <td>
-                                    <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
-                                    <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
-                                    <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="basic_table.html#">
-                                        Another Co
-                                    </a>
-                                </td>
-                                <td class="hidden-phone">Lorem Ipsum dolor</td>
-                                <td class="hidden-phone">Lorem Ipsum dolor</td>
-                                <td class="hidden-phone">Lorem Ipsum dolor</td>
-                                <td class="hidden-phone">Lorem Ipsum dolor</td>
-                                <td>14400.00$ </td>
-                                <td><span class="label label-success label-mini">Paid</span></td>
-                                <td>
-                                    <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
-                                    <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
-                                    <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="basic_table.html#">
-                                        Dashgum ext
-                                    </a>
-                                </td>
-                                <td class="hidden-phone">Lorem Ipsum dolor</td>
-                                <td class="hidden-phone">Lorem Ipsum dolor</td>
-                                <td class="hidden-phone">Lorem Ipsum dolor</td>
-                                <td class="hidden-phone">Lorem Ipsum dolor</td>
-                                <td>22000.50$ </td>
-                                <td><span class="label label-success label-mini">Paid</span></td>
-                                <td>
-                                    <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
-                                    <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
-                                    <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="basic_table.html#">Total Ltd</a></td>
-                                <td class="hidden-phone">Lorem Ipsum dolor</td>
-                                <td class="hidden-phone">Lorem Ipsum dolor</td>
-                                <td class="hidden-phone">Lorem Ipsum dolor</td>
-                                <td class="hidden-phone">Lorem Ipsum dolor</td>
-                                <td>12120.00$ </td>
-                                <td><span class="label label-warning label-mini">Due</span></td>
 
-                                <td>
-                                    <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
-                                    <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
-                                    <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
-                                </td>
-                            </tr>
+                                @php
+                                    $t=0;
+                                @endphp
+
+                                @foreach ($tables as $table)
+                                    @php
+                                    $t+=1;
+                                @endphp
+                                <tr>
+                                    <td><a href="basic_table.html#">{{ $t }}</a></td>
+                                    <td class="hidden-phone">{{ $table->khach_hang }}</td>
+                                    <td class="hidden-phone">{{ $table->so_luong }}</td>
+                                    <td class="hidden-phone">{{ $table->date_order }}</td>
+                                    <td>{{ $table->total }}</td>
+                                    <td> {{ $table->address }}</td>
+                                    <td> {{ $table->note }}</td>
+                                    <td> {{ $table->phone }}</td>
+                                    @if( $table->payment == 'COD')
+                                    <td><span class="label label-info label-mini">COD</span></td>
+                                    @else
+                                    <td> <span class="label label-warning label-mini">ATM</span></td>
+                                    @endif
+                                    <td>
+                                        <span class="btn btn-success btn-xs">
+                                            <a class=" w-75 " style="color:white" href="{{ route('chitiet',[$table->id]) }}"><i class="fa fa-pencil"></i></a>
+                                          </span>
+                                    </td>
+                                </tr>
+                                @endforeach
+
                             </tbody>
                         </table>
                     </div><!-- /content-panel -->

@@ -96,10 +96,10 @@
                                     <p class="single-item-title">{{ $newproduct->name }}</p>
                                     <p class="single-item-price">
                                         @if ($newproduct->promotion_price ==0)
-                                        <span class="flash-sale">{{ $newproduct->Unit_price }} vnd</span>
+                                        <span class="flash-sale">{{number_format ($newproduct->Unit_price,0) }} vnd</span>
                                         @else
-                                        <span class="flash-del">{{ $newproduct->Unit_price }} vnd</span>
-                                        <span class="flash-sale">{{ $newproduct->promotion_price }} vnd</span>
+                                        <span class="flash-del">{{number_format ($newproduct->Unit_price,0) }} vnd</span>
+                                        <span class="flash-sale">{{number_format ($newproduct->promotion_price,0) }} vnd</span>
                                         @endif
                                     </p>
                                 </div>
@@ -126,9 +126,9 @@
                                 <div class="media-body">
                                   {{ $new->name }}
                                   @if ($newproduct->promotion_price == 0)
-                                  <span class="beta-sales-price">{{ $newproduct->Unit_price }} vnd</span>
+                                  <span class="beta-sales-price">{{number_format ($newproduct->Unit_price,0) }} vnd</span>
                                   @else
-                                  <span class="beta-sales-price">{{ $newproduct->promotion_price }} vnd</span>
+                                  <span class="beta-sales-price">{{number_format ($newproduct->promotion_price,0) }} vnd</span>
                                   @endif
                                 </div>
                             </div>
@@ -149,12 +149,11 @@
                                 <div class="media-body">
                                   {{ $new->name }} <br />
                                   @if ($new->promotion_price == 0)
-                                  <span class="flash-sale">{{ $new->Unit_price }} vnd</span>
+                                  <span class="flash-sale">{{number_format ($new->Unit_price,0) }}vnd</span>
                                   @else
-                                  <span class="flash-del">{{ $new->Unit_price }} vnd</span><br/>
-                                  <span class="flash-sale">{{ $new->promotion_price }} vnd</span>
+                                  <span class="flash-del">{{number_format ($new->Unit_price, 0) }} vnd</span><br/>
+                                  <span class="flash-sale">{{number_format ($new->promotion_price, 0) }} vnd</span>
                                   @endif
-
                                 </div>
                             </div>
                             @endforeach

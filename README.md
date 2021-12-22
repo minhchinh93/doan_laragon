@@ -8,6 +8,7 @@ FROM
     bills
 INNER JOIN bill_detaills ON bill_detaills.id_bill = bills.id
 INNER JOIN products ON bill_detaills.id_product = products.id
+
 INNER JOIN customers ON bills.id_customer = customers.id
 
 
@@ -17,6 +18,7 @@ SUM(bill_detaills.quantity) as 'so luong',
  bills.total FROM bills 
  INNER JOIN
  bill_detaills 
+ 
  ON bill_detaills.id_bill = bills.id 
  INNER JOIN
  customers 

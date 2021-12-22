@@ -186,7 +186,7 @@
             </div>
             <div class="top-menu">
             	<ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="login.html">Logout</a></li>
+                    <li><a class="logout" href="{{ route('logout') }}">Logout</a></li>
             	</ul>
             </div>
         </header>
@@ -205,14 +205,15 @@
               	  <h5 class="centered">Marcel Newman</h5>
 
                   <li class="mt">
-                      <a class="active" href="index.html">
+                      <a class="{{ (request()->is('admin/showList/dasboa')) ? 'active' : 'sub-menu' }}" href="{{ route('showdasboa') }}">
                           <i class="fa fa-dashboard"></i>
                           <span>Dashboard</span>
                       </a>
                   </li>
 
                   <li class="sub-menu">
-                      <a href="javascript:;" >
+                      <a 	class="{{ (request()->is('admin/showList/User')) ? 'active' : 'sub-menu' }}"
+                        href="{{ route('showUser') }}" >
                           <i class="fa fa-desktop"></i>
                           <span>USER</span>
                       </a>
@@ -222,24 +223,17 @@
                       </ul>
                   </li>
                   <li class="sub-menu">
-                    <a href="javascript:;" >
-                        <i class="fa fa-book"></i>
-                        <span>custommer</span>
-                    </a>
-                </li>
-
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
+                      <a class="{{ (request()->is('admin/categoriesList')) ? 'active' : 'sub-menu' }}" href="{{ route('categoriesList') }}" >
                           <i class="fa fa-cogs"></i>
                           <span>Category</span>
                       </a>
-                      <ul class="sub">
+                      <ul  class="sub">
                           <li><a  href="calendar.html">Calendar</a></li>
 
                       </ul>
                   </li>
                   <li class="sub-menu">
-                      <a href="javascript:;" >
+                      <a class="{{ (request()->is('admin/ProductList')) ? 'active' : 'sub-menu' }}" href="{{ route('ProductList') }}" >
                           <i class="fa fa-book"></i>
                           <span>Product</span>
                       </a>
