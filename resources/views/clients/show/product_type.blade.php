@@ -5,11 +5,11 @@
 <div class="inner-header">
     <div class="container">
         <div class="pull-left">
-            <h6 class="inner-title">Sản phẩm</h6>
+            <h6 class="inner-title">Sản phẩm tìm thấy: {{ $menuID->name }}</h6>
         </div>
         <div class="pull-right">
             <div class="beta-breadcrumb font-large">
-                <a href="index.html">Home</a> / <span>Sản phẩm</span>
+                <a href="{{ route('home') }}">Home</a> / <span>{{ $menuID->name }}</span>
             </div>
         </div>
         <div class="clearfix"></div>
@@ -46,17 +46,22 @@
                             </div>
                             @endif
                             <div class="single-item-header">
-                                <a href="product.html"><img src="{{asset('/storage/images/'.$newproduct->image)}}"height="250px" alt=""></a>
+                                <a href="{{ route('product',[$newproduct->id]) }}"><img src="{{asset('/storage/images/'.$newproduct->image)}}"height="250px" alt=""></a>
                             </div>
                             <div class="single-item-body">
                                 <p class="single-item-title">{{ $newproduct->name }}</p>
                                 <p class="single-item-price">
+                                    @if ($newproduct->promotion_price ==0)
+                                    <span class="flash-sale">{{ $newproduct->Unit_price }} vnd</span>
+                                    @else
                                     <span class="flash-del">{{ $newproduct->Unit_price }} vnd</span>
                                     <span class="flash-sale">{{ $newproduct->promotion_price }} vnd</span>
+                                    @endif
+                                </p>
                                 </p>
                             </div>
                             <div class="single-item-caption">
-                                <a class="add-to-cart pull-left" style="color:white" href="shopping_cart.html"><i class="fa fa-shopping-cart"></i></a>
+                                <a class="add-to-cart pull-left" style="color:white" href="{{ route('shopping',[$newproduct->id]) }}"><i class="fa fa-shopping-cart"></i></a>
                                 <a class="beta-btn primary" href="{{ route('product',[$newproduct->id]) }}">Chi Tiết <i class="fa fa-chevron-right"></i></a>
                                 <div class="clearfix"></div>
                             </div>
@@ -65,9 +70,9 @@
                             @endforeach
                         </div>
                     </div> <!-- .beta-products-list -->
-                    {{ $products->links() }}
-                    <div class="space50">&nbsp;</div>
 
+                    <div class="space50">&nbsp;</div>
+                    {{ $products->links() }}
                     <div class="beta-products-list">
                         <h4>Sản Phẩm Khác</h4>
                         <div class="beta-products-details">
@@ -84,18 +89,22 @@
                             </div>
                             @endif
                             <div class="single-item-header">
-                                <a href="product.html"><img src="{{asset('/storage/images/'.$newproduct->image)}}" height="250px"  alt=""></a>
+                                <a href="{{ route('product',[$newproduct->id]) }}"><img src="{{asset('/storage/images/'.$newproduct->image)}}" height="250px"  alt=""></a>
                             </div>
                             <div class="single-item-body">
                                 <p class="single-item-title">{{ $newproduct->name }}</p>
                                 <p class="single-item-price">
+                                    @if ($newproduct->promotion_price ==0)
+                                    <span class="flash-sale">{{ $newproduct->Unit_price }} vnd</span>
+                                    @else
                                     <span class="flash-del">{{ $newproduct->Unit_price }} vnd</span>
                                     <span class="flash-sale">{{ $newproduct->promotion_price }} vnd</span>
+                                    @endif
                                 </p>
                             </div>
-                            <div class="single-item-caption">
-                                <a class="add-to-cart pull-left" style="color:white" href="shopping_cart.html"><i class="fa fa-shopping-cart"></i></a>
-                                <a class="beta-btn primary" href="product.html">Chi Tiết <i class="fa fa-chevron-right"></i></a>
+                            <div class="single-item-caption ">
+                                <a class="add-to-cart pull-left" style="color:white; margin:auto" href="{{ route('shopping',[$newproduct->id]) }}"><i class="fa fa-shopping-cart"></i></a>
+                                <a class="beta-btn primary" href="{{ route('product',[$newproduct->id]) }}">Chi Tiết <i class="fa fa-chevron-right"></i></a>
                                 <div class="clearfix"></div>
                             </div>
                         </div>

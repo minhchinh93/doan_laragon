@@ -41,7 +41,12 @@ class productController extends Controller
         return redirect()->route('ProductList')->with('success', 'bạn da them danh muc thanh cong');
     }
     public function updateProduct(Request $request, $id){
-        $image= $request->file('image')->store('images');
+        $image="";
+        if($request->image){
+            $image= $request->file('image')->store('images');
+        }else{
+           $image= Product::find($id)->image;
+        }
         Product::where('id',$id)->update(array_merge($request->only('name','id_type','description','Unit_price','promotion_price','new','unit'),['image'=> $image]));
         return redirect()->route('ProductList')->with('success', 'bạn xóa danh mục thanh cong');
     }

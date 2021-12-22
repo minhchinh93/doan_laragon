@@ -37,7 +37,12 @@ class typeProductController extends Controller
         return redirect()->route('categoriesList')->with('success', 'bạn da them danh muc thanh cong');
     }
     public function updateCategory(Request $request, $id){
-        $image= $request->file('image')->store('images');
+        $image="";
+        if($request->image){
+            $image= $request->file('image')->store('images');
+        }else{
+           $image= type_product::find($id)->image;
+        }
         type_product::where('id',$id)->update(array_merge($request->only('name','description'),['image'=>$image]));
         return redirect()->route('categoriesList')->with('success', 'bạn update  danh mục thanh cong');
     }

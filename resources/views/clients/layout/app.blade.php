@@ -22,34 +22,22 @@
 
 	<div id="header">
 		<div class="header-top">
-			<div class="container">
+            <div class="container">
 				<div class="pull-left auto-width-left">
 					<ul class="top-menu menu-beta l-inline">
-						<li><a href="index.html"><i class="fa fa-home"></i> Home</a></li>
-						<li><a href="#"><i class="fa fa-sitemap"></i> Sitemap</a></li>
+						<li><a href=""><i class="fa fa-home"></i> 90-92 Lê Thị Riêng, Bến Thành, Quận 1</a></li>
+						<li><a href=""><i class="fa fa-phone"></i> 0163 296 7751</a></li>
 					</ul>
 				</div>
 				<div class="pull-right auto-width-right">
 					<ul class="top-details menu-beta l-inline">
-						<li><a href="#"><i class="fa fa-user"></i> Your Account</a></li>
-						<li class="hidden-xs">
-							<select name="languages">
-								<option value="en">English</option>
-								<option value="ro">Romana</option>
-								<option value="ru">Rusa</option>
-							</select>
-						</li>
-						<li class="hidden-xs">
-							<select name="currency">
-								<option value="usd">USD</option>
-								<option value="eur">EUR</option>
-								<option value="ron">RON</option>
-							</select>
-						</li>
+						<li><a href="#"><i class="fa fa-user"></i>Tài khoản</a></li>
+						<li><a href="#">Đăng kí</a></li>
+						<li><a href="#">Đăng nhập</a></li>
 					</ul>
 				</div>
 				<div class="clearfix"></div>
-			</div> <!-- .container -->
+			</div> <!-- .container --> <!-- .container -->
 		</div> <!-- .header-top -->
 		<div class="header-body">
 			<div class="container beta-relative">
@@ -64,60 +52,36 @@
 					        <button class="fa fa-search" type="submit" id="searchsubmit"></button>
 						</form>
 					</div>
-
 					<div class="beta-comp">
 						<div class="cart">
-							<div class="beta-select"><i class="fa fa-shopping-cart"></i> Cart (empty) <i class="fa fa-chevron-down"></i></div>
+                            @if(Cart::count()>0)
+							<div class="beta-select"><i class="fa fa-shopping-cart"></i> số sản phẩm ({{ Cart::count() }}) <i class="fa fa-chevron-down"></i></div>
 							<div class="beta-dropdown cart-body">
-								<div class="cart-item">
-									<a class="cart-item-edit" href="#"><i class="fa fa-pencil"></i></a>
-									<a class="cart-item-delete" href="#"><i class="fa fa-times"></i></a>
+                                @foreach (Cart::content() as $cart)
+                                <div class="cart-item">
+									<a class="cart-item-edit" href="{{ route('shopping',[$cart->id]) }}"><i class="fa fa-pencil"></i></a>
+									<a class="cart-item-delete" href="{{ route('deletecart',[$cart->rowId]) }}"><i class="fa fa-times"></i></a>
 									<div class="media">
-										<a class="pull-left" href="#"><img src="assets/dest/images/products/cart/1.png" alt=""></a>
+										<a class="pull-left" href="#"><img src="{{asset('/storage/images/'.$cart->options->image)}}" height="70px"alt=""></a>
 										<div class="media-body">
-											<span class="cart-item-title">Sample Woman Top</span>
-											<span class="cart-item-options">Size: XS; Colar: Navy</span>
-											<span class="cart-item-amount">1*<span>$49.50</span></span>
+											<span class="cart-item-title">{{ $cart-> name }}</span>
+											<span class="cart-item-amount">{{ $cart->qty }}*{{ $cart->price }} vnđ</span>
 										</div>
 									</div>
 								</div>
-
-								<div class="cart-item">
-									<a class="cart-item-edit" href="#"><i class="fa fa-pencil"></i></a>
-									<a class="cart-item-delete" href="#"><i class="fa fa-times"></i></a>
-									<div class="media">
-										<a class="pull-left" href="#"><img src="assets/dest/images/products/cart/2.png" alt=""></a>
-										<div class="media-body">
-											<span class="cart-item-title">Sample Woman Top</span>
-											<span class="cart-item-options">Size: XS; Colar: Navy</span>
-											<span class="cart-item-amount">1*<span>$49.50</span></span>
-										</div>
-									</div>
-								</div>
-
-								<div class="cart-item">
-									<a class="cart-item-edit" href="#"><i class="fa fa-pencil"></i></a>
-									<a class="cart-item-delete" href="#"><i class="fa fa-times"></i></a>
-									<div class="media">
-										<a class="pull-left" href="#"><img src="assets/dest/images/products/cart/3.png" alt=""></a>
-										<div class="media-body">
-											<span class="cart-item-title">Sample Woman Top</span>
-											<span class="cart-item-options">Size: XS; Colar: Navy</span>
-											<span class="cart-item-amount">1*<span>$49.50</span></span>
-										</div>
-									</div>
-								</div>
-
+                                @endforeach
 								<div class="cart-caption">
-									<div class="cart-total text-right">Subtotal: <span class="cart-total-value">$34.55</span></div>
+									<div class="cart-total text-right">Subtotal: <span class="cart-total-value">{{ Cart::subtotal() }}</span></div>
 									<div class="clearfix"></div>
-
 									<div class="center">
 										<div class="space10">&nbsp;</div>
-										<a href="#" class="beta-btn primary text-center">Checkout <i class="fa fa-chevron-right"></i></a>
+										<a href="{{ route('checkout') }}" class="beta-btn primary text-center">Checkout <i class="fa fa-chevron-right"></i></a>
 									</div>
 								</div>
 							</div>
+                            @else
+							<div class="beta-select"><i class="fa fa-shopping-cart"></i> số sản phẩm ('trống') <i class="fa fa-chevron-down"></i></div>
+                             @endif
 						</div> <!-- .cart -->
 					</div>
 				</div>
@@ -251,36 +215,4 @@
 </body>
 
 </html>        <!-- .container -->
-    </div>
-    <!-- .copyright -->
 
-
-    <!-- include js files -->
-    <script src="{{ asset('client/dest/js/jquery.js') }}"></script>
-    <script src="{{ asset('client/dest/vendors/jqueryui/jquery-ui-1.10.4.custom.min.js') }}"></script>
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-    <script src="{{ asset('client/dest/vendors/bxslider/jquery.bxslider.min.js') }}"></script>
-    <script src="{{ asset('client/dest/vendors/colorbox/jquery.colorbox-min.js') }}"></script>
-    <script src="{{ asset('client/dest/vendors/animo/Animo.js') }}"></script>
-    <script src="{{ asset('client/dest/vendors/dug/dug.js') }}"></script>
-    <script src="{{ asset('client/dest/js/scripts.min.js') }}"></script>
-    <script src="{{ asset('client/dest/rs-plugin/js/jquery.themepunch.tools.min.js') }}"></script>
-    <script src="{{ asset('client/dest/rs-plugin/js/jquery.themepunch.revolution.min.js') }}"></script>
-    <script src="{{ asset('client/dest/js/waypoints.min.js') }}"></script>
-    <script src="{{ asset('client/dest/js/wow.min.js') }}"></script>
-    <!--customjs-->
-    <script src="{{ asset('client/dest/js/custom2.js') }}"></script>
-    <script>
-        $(document).ready(function($) {
-            $(window).scroll(function(){
-                if($(this).scrollTop()>150){
-                $(".header-bottom").addClass('fixNav')
-                }else{
-                    $(".header-bottom").removeClass('fixNav')
-                }}
-            )
-        })
-    </script>
-</body>
-
-</html>

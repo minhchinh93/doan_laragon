@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\typeProductController;
 use App\Http\Controllers\admin\productController;
+use App\Http\Controllers\admin\dasboaController;
 //clients
 use App\Http\Controllers\client\HomeController;
 
@@ -20,31 +21,34 @@ use App\Http\Controllers\client\HomeController;
 */
 
 Route::get('/', function () {
-    return view('clients.show.about');
+    return view('admin.dasboa.index');
 });
-
 
 //============ ADMIN  ====================//
 Route::prefix('admin')->group(function () {
-    //=======USER=========//
-    //show user
-    Route::get('showList/user',[UserController::class,'showList'])->name('showUser');
+
+
+
+
+    //=======dasboa=========//
+    //show dasboa
+    Route::get('showList/dasboa',[dasboaController::class,'showdasboa'])->name('showdasboa');
     // edit user
-    Route::get('editList/user/{id}',[UserController::class,'editList'])->name('editUser');
-    Route::post('update/show/{id}',[userController::class,'updatesuser'])->name('updatesuser');
+    Route::get('editList/user/{id}',[dasboaController::class,'editList'])->name('editUser');
+    Route::post('update/show/{id}',[dasboaController::class,'updatesuser'])->name('updatesuser');
     // add user
-    Route::get('addList/user',[UserController::class,'addList'])->name('addUser');
-    Route::post('postList/user',[UserController::class,'postList'])->name('postList');
+    Route::get('addList/user',[dasboaController::class,'addList'])->name('addUser');
+    Route::post('postList/user',[dasboaController::class,'postList'])->name('postList');
     // delete user
-    Route::get('/deleteUser/{id}',[userController::class,'delete'])->name('deleteUser');
+    Route::get('/deleteUser/{id}',[userdasboaControllerController::class,'delete'])->name('deleteUser');
     // show trackuser
-    Route::get('trackuser', [userController::class,'trackuser'])->name('trackuser');
+    Route::get('trackuser', [dasboaController::class,'trackuser'])->name('trackuser');
     //show activeruser
-    Route::get('activeruser', [userController::class,'activeruser'])->name('activeruser');
+    Route::get('activeruser', [dasboaController::class,'activeruser'])->name('activeruser');
     // khoi phuc thung rac
-    Route::get('/restoreUser/{id}',[userController::class,'restoreUser'])->name('restoreUser');
+    Route::get('/restoreUser/{id}',[dasboaController::class,'restoreUser'])->name('restoreUser');
     // action tổng hợp trong uer
-    Route::get('action',[userController::class,'action'])->name('action');
+    Route::get('action',[dasboaController::class,'action'])->name('action');
 
 
     //=========khoi categoru============//
@@ -107,7 +111,12 @@ Route::prefix('client')->group(function () {
     //show about
     Route::get('about',[HomeController::class,'about'])->name('about');
     //show shopping
-    Route::get('shopping',[HomeController::class,'shopping'])->name('shopping');
-
+    Route::get('shopping/{id}',[HomeController::class,'shopping'])->name('shopping');
+    //show addcart
+    Route::get('deletecart/{rowID}',[HomeController::class,'deletecart'])->name('deletecart');
+    //show checkout
+    Route::get('checkout',[HomeController::class,'checkout'])->name('checkout');
+    //show checkout
+    Route::post('postcheckout',[HomeController::class,'postcheckout'])->name('postcheckout');
 
 });
